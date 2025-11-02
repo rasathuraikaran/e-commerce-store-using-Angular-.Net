@@ -44,41 +44,41 @@ public class SpecificationEvaluator<T> where T : BaseEntity
         return query;
     }
 
-    // public static IQueryable<TResult> GetQuery<TSpec, TResult>(IQueryable<T> query,
-    //     ISpecification<T, TResult> spec)
-    // {
-    //     if (spec.Criteria != null)
-    //     {
-    //         query = query.Where(spec.Criteria); // x => x.Brand == "React"
-    //     }
+    public static IQueryable<TResult> GetQuery<TSpec, TResult>(IQueryable<T> query,
+        ISpecification<T, TResult> spec)
+    {
+        if (spec.Criteria != null)
+        {
+            query = query.Where(spec.Criteria); // x => x.Brand == "React"
+        }
 
-    //     if (spec.OrderBy != null)
-    //     {
-    //         query = query.OrderBy(spec.OrderBy);
-    //     }
+        if (spec.OrderBy != null)
+        {
+            query = query.OrderBy(spec.OrderBy);
+        }
 
-    //     if (spec.OrderByDescending != null)
-    //     {
-    //         query = query.OrderByDescending(spec.OrderByDescending);
-    //     }
+        if (spec.OrderByDescending != null)
+        {
+            query = query.OrderByDescending(spec.OrderByDescending);
+        }
 
-    //     var selectQuery = query as IQueryable<TResult>;
+        var selectQuery = query as IQueryable<TResult>;
 
-    //     if (spec.Select != null)
-    //     {
-    //         selectQuery = query.Select(spec.Select);
-    //     }
+        if (spec.Select != null)
+        {
+            selectQuery = query.Select(spec.Select);
+        }
 
-    //     if (spec.IsDistinct)
-    //     {
-    //         selectQuery = selectQuery?.Distinct();
-    //     }
+        if (spec.IsDistinct)
+        {
+            selectQuery = selectQuery?.Distinct();
+        }
 
-    //     if (spec.IsPagingEnabled)
-    //     {
-    //         selectQuery = selectQuery?.Skip(spec.Skip).Take(spec.Take);
-    //     }
+        // if (spec.IsPagingEnabled)
+        // {
+        //     selectQuery = selectQuery?.Skip(spec.Skip).Take(spec.Take);
+        // }
 
-    //     return selectQuery ?? query.Cast<TResult>();
-    // }
+        return selectQuery ?? query.Cast<TResult>();
+    }
 }
