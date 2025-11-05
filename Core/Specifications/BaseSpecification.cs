@@ -17,19 +17,19 @@ public class BaseSpecification<T>(Expression<Func<T, bool>>? criteria) : ISpecif
     // public List<string> IncludeStrings { get; } = []; // For ThenInclude
 
      public bool IsDistinct { get; private set; }
-    // public int Take { get; private set; }
-    // public int Skip { get; private set; }
-    // public bool IsPagingEnabled { get; private set; }
+    public int Take { get; private set; }
+    public int Skip { get; private set; }
+    public bool IsPagingEnabled { get; private set; }
 
-    // public IQueryable<T> ApplyCriteria(IQueryable<T> query)
-    // {
-    //     if (Criteria != null)
-    //     {
-    //         query = query.Where(Criteria);
-    //     }
+    public IQueryable<T> ApplyCriteria(IQueryable<T> query)
+    {
+        if (Criteria != null)
+        {
+            query = query.Where(Criteria);
+        }
 
-    //     return query;
-    // }
+        return query;
+    }
 
     // protected void AddInclude(Expression<Func<T, object>> includeExpression)
     // {
@@ -56,12 +56,12 @@ public class BaseSpecification<T>(Expression<Func<T, bool>>? criteria) : ISpecif
         IsDistinct = true;
     }
 
-    // protected void ApplyPaging(int skip, int take)
-    // {
-    //     Skip = skip;
-    //     Take = take;
-    //     IsPagingEnabled = true;
-    // }
+    protected void ApplyPaging(int skip, int take)
+    {
+        Skip = skip;
+        Take = take;
+        IsPagingEnabled = true;
+    }
 }
 
 public class BaseSpecification<T, TResult>(Expression<Func<T, bool>>? criteria)
