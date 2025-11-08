@@ -1,4 +1,5 @@
 using System.Data;
+using API.Middleware;
 using Core.Interfaces;
 using Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
@@ -14,10 +15,13 @@ builder.Services.AddDbContext<StoreContext>(opt =>
 });
 builder.Services.AddScoped<IProductRepository, ProductRepository>();
 builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
+builder.Services.AddCors();
 
 var app = builder.Build();
+app.UseCors(x=> x.AllowAnyHeader().AllowAnyMethod().WithOrigins("http://localhost:4200","https://localhost:4200"));
 app.MapControllers();
 
+app.UseMiddleware<ExceptionMiddleware>();
 
 try
 {
@@ -27,7 +31,7 @@ try
     await context.Database.MigrateAsync();
     await StoreContextSeed.SeedAsync(context);
 }
-catch(Exception ex)
+catch (Exception ex)
 {
     Console.WriteLine(ex.ToString());
     throw;
